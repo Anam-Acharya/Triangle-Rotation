@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Gradient Circle with Triangle</title>
+    <style>
+        @keyframes rotateAll {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            animation: rotateAll 2s linear infinite;
+            transform-origin: center;
+        }
+
+        .circle {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        .circle::before {
+            content: "";
+            position: absolute;
+            inset: -3px;
+            border-radius: inherit;
+            padding: 3px;
+            background: linear-gradient(to right, #f00, #00f);
+            -webkit-mask: 
+              linear-gradient(white 0 0) content-box, 
+              linear-gradient(white 0 0);
+            mask: 
+              linear-gradient(white 0 0) content-box, 
+              linear-gradient(white 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: xor;
+        }
+
+        .triangle-svg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="circle"></div>
+        <svg class="triangle-svg" width="200" height="200">
+            <defs>
+                <linearGradient id="grad" x1="0%" y1="50%" x2="100%" y2="50%">
+                    <stop offset="0%" stop-color="#f00"/>
+                    <stop offset="100%" stop-color="#00f"/>
+                </linearGradient>
+            </defs>
+            <path d="M100 0 L186.6 150 L13.4 150 Z" fill="none" stroke="url(#grad)" stroke-width="2"/>
+        </svg>
+    </div>
+</body>
+</html>
